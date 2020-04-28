@@ -1,0 +1,58 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a href="#" class="logo">
+      <img alt="logo" src="https://avatars2.githubusercontent.com/u/20973209?s=60&u=7ae574595a61f7b5a00ff68f61e05f8cc81ac6de&v=4" />
+    </a>
+    <h1 class="example-app-name">{{appName}}</h1>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="user.toggle()">
+      <mat-icon class="example-icon">account_circle</mat-icon>
+    </button>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <a mat-list-item (click)="redirect(nav.component)" *ngFor="let nav of fillerNav">
+          <mat-icon *ngIf="nav.icon">{{nav.icon}}</mat-icon>
+          {{nav.label}}
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+
+    <mat-sidenav #user mode="over" position="end" class="ui-sidebar ui-sidebar-right">
+      <div class="sidebar-content">
+        <div class="avatar">
+          <span class="initials">{{ userInitials }}</span>
+        </div>
+        <mat-card>
+          <div class="sidebar-user-panel">
+            <p class="username">{{ username }}</p>
+            <p>
+              <button
+                mat-button
+                type="button"
+                id="logout"
+                (click)="logOut($event)"
+              > Logout
+              </button>
+            </p>
+          </div>
+        </mat-card>
+
+      </div>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</div>
+
